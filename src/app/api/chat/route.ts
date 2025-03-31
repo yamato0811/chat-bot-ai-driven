@@ -6,28 +6,22 @@ interface Message {
   content: string;
 }
 
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
-    const apiKey = process.env.OPENAI_API_KEY;
-
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: "API Key is not configured" },
-        { status: 401 }
-      );
-    }
-
-    const openai = new OpenAI({
-      apiKey,
-    });
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: messages.map((msg: Message) => ({
+      model: "gpt-4o-mini",
+      messages: messages.map((msg: any) => ({
         role: msg.role,
         content: msg.content,
       })),
+      temperature: 0.7,
+      max_tokens: 1000,
     });
 
     return NextResponse.json({
@@ -36,7 +30,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Failed to get response from OpenAI" },
       { status: 500 }
     );
   }
