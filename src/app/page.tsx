@@ -19,9 +19,30 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // デスクトップサイズの場合はサイドバーを開く
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        // md breakpoint
+        setIsSidebarOpen(true);
+      } else {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    // 初期化時に実行
+    handleResize();
+
+    // リサイズイベントのリスナーを追加
+    window.addEventListener("resize", handleResize);
+
+    // クリーンアップ
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
