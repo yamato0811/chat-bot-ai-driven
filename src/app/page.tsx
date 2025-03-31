@@ -191,7 +191,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-[100dvh]">
       <Sidebar
         histories={histories}
         currentHistoryId={currentHistoryId}
@@ -202,9 +202,9 @@ export default function Home() {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <div className="flex-1 min-h-screen bg-[#fafafa] dark:bg-gray-950">
-        <div className="max-w-5xl mx-auto p-4 md:p-8 space-y-8">
-          <div className="text-center space-y-3">
+      <div className="flex-1 min-h-[100dvh] bg-[#fafafa] dark:bg-gray-950">
+        <div className="max-w-5xl mx-auto p-4 md:p-8 space-y-4 md:space-y-8">
+          <div className="text-center space-y-2 md:space-y-3">
             <div className="flex items-center justify-center gap-2">
               <Button
                 variant="ghost"
@@ -214,18 +214,18 @@ export default function Home() {
               >
                 <Menu className="w-6 h-6" />
               </Button>
-              <span className="text-4xl">🦀</span>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-600 text-transparent bg-clip-text">
+              <span className="text-3xl md:text-4xl">🦀</span>
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-600 text-transparent bg-clip-text">
                 カニAIチャット
               </h1>
             </div>
             <p className="text-gray-600 dark:text-gray-400"></p>
           </div>
 
-          <Card className="backdrop-blur-sm bg-white/80 dark:bg-gray-900/80 shadow-xl border-0 overflow-hidden">
-            <div className="p-4 border-b dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
+          <Card className="backdrop-blur-sm bg-white/80 dark:bg-gray-900/80 shadow-xl border-0 overflow-hidden h-[calc(100dvh-12rem)] md:h-[calc(100dvh-16rem)]">
+            <div className="p-3 md:p-4 border-b dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">🦀</span>
+                <span className="text-xl md:text-2xl">🦀</span>
                 <span className="font-medium text-gray-900 dark:text-gray-100">
                   カニAIアシスタント
                 </span>
@@ -237,7 +237,10 @@ export default function Home() {
               </div>
             </div>
 
-            <ScrollArea className="h-[600px] p-6" ref={scrollAreaRef}>
+            <ScrollArea
+              className="h-[calc(100%-8rem)] p-4 md:p-6"
+              ref={scrollAreaRef}
+            >
               <AnimatePresence>
                 {messages.length === 0 ? (
                   <motion.div
