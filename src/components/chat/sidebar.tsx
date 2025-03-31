@@ -24,7 +24,7 @@ export function Sidebar({
 }: SidebarProps) {
   return (
     <div
-      className={`fixed md:relative h-screen bg-white dark:bg-gray-900 border-r dark:border-gray-800 flex flex-col transition-transform duration-300 ease-in-out ${
+      className={`fixed md:relative h-screen w-64 bg-white dark:bg-gray-900 border-r dark:border-gray-800 flex flex-col transition-transform duration-300 ease-in-out ${
         isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
       } z-50`}
     >
@@ -53,19 +53,21 @@ export function Sidebar({
               key={history.id}
               className={`group flex items-center justify-between p-2 rounded-lg cursor-pointer ${
                 currentHistoryId === history.id
-                  ? "bg-blue-50 dark:bg-blue-950/30"
+                  ? "bg-orange-50 dark:bg-orange-950/30"
                   : "hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
               onClick={() => onSelectHistory(history.id)}
             >
-              <div className="flex items-center gap-2 min-w-0">
-                <MessageSquare className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                <span className="text-sm truncate">{history.title}</span>
+              <div className="flex items-center gap-2 min-w-0 flex-1">
+                <MessageSquare className="w-4 h-4 text-gray-500 dark:text-gray-400 flex-shrink-0" />
+                <span className="text-sm truncate max-w-[160px]">
+                  {history.title}
+                </span>
               </div>
               <Button
                 variant="ghost"
                 size="icon"
-                className="opacity-0 group-hover:opacity-100"
+                className="opacity-0 group-hover:opacity-100 flex-shrink-0"
                 onClick={(e) => {
                   e.stopPropagation();
                   onDeleteHistory(history.id);
