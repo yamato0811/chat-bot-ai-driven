@@ -2,8 +2,6 @@ import { ChatHistory } from "@/types/chat";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus, Trash2, MessageSquare, ChevronLeft } from "lucide-react";
-import { format } from "date-fns";
-import { ja } from "date-fns/locale";
 
 interface SidebarProps {
   histories: ChatHistory[];
