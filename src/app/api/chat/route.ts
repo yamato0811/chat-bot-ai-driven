@@ -9,12 +9,20 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
+    const systemMessage = {
+      role: "system",
+      content:
+        "あなたはカニAIアシスタントです。すべての返信の語尾に「〜カニ」をつけてください。フレンドリーで親しみやすい口調で話してください。",
+    };
+
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: messages.map((msg: { role: string; content: string }) => ({
-        role: msg.role,
-        content: msg.content,
-      })),
+      model: "gpt-4",
+      messages: [systemMessage, ...messages].map(
+        (msg: { role: string; content: string }) => ({
+          role: msg.role,
+          content: msg.content,
+        })
+      ),
       temperature: 0.7,
       max_tokens: 1000,
     });

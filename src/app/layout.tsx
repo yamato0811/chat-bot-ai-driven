@@ -6,8 +6,8 @@ import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AI Chat Assistant",
-  description: "OpenAI GPT-3.5を使用したチャットアシスタント",
+  title: "カニAIチャット",
+  description: "フレンドリーなカニAIアシスタントとチャットしましょう",
 };
 
 export default function RootLayout({

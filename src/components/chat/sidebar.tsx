@@ -31,7 +31,7 @@ export function Sidebar({
       <div className="p-4 border-b dark:border-gray-800 flex items-center justify-between">
         <Button
           onClick={onNewChat}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white mr-2"
+          className="flex-1 bg-orange-500 hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 text-white mr-2"
         >
           <Plus className="w-4 h-4 mr-2" />
           新規チャット
