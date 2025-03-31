@@ -191,7 +191,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-[100dvh] overflow-hidden">
+    <div className="flex h-[100dvh]">
       <Sidebar
         histories={histories}
         currentHistoryId={currentHistoryId}
@@ -202,8 +202,8 @@ export default function Home() {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <div className="flex-1 flex flex-col h-[100dvh] bg-[#fafafa] dark:bg-gray-950 overflow-hidden">
-        <div className="flex-1 flex flex-col max-w-5xl mx-auto w-full p-2 md:p-8">
+      <div className="flex-1 flex flex-col bg-[#fafafa] dark:bg-gray-950">
+        <div className="flex flex-col max-w-5xl mx-auto w-full p-2 md:p-8">
           <div className="text-center space-y-2 md:space-y-3 mb-2 md:mb-4">
             <div className="flex items-center justify-center gap-2 relative">
               <Button
@@ -221,7 +221,7 @@ export default function Home() {
             </div>
           </div>
 
-          <Card className="flex-1 flex flex-col backdrop-blur-sm bg-white/80 dark:bg-gray-900/80 shadow-xl border-0 overflow-hidden">
+          <Card className="flex flex-col backdrop-blur-sm bg-white/80 dark:bg-gray-900/80 shadow-xl border-0">
             <div className="p-3 md:p-4 border-b dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
               <div className="flex items-center gap-2">
                 <span className="text-xl md:text-2xl">🦀</span>
@@ -236,69 +236,71 @@ export default function Home() {
               </div>
             </div>
 
-            <ScrollArea className="flex-1 p-3 md:p-6" ref={scrollAreaRef}>
-              <AnimatePresence>
-                {messages.length === 0 ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col items-center justify-center h-full space-y-4 text-gray-400"
-                  >
-                    <MessageCircle className="w-12 h-12" />
-                    <p className="text-lg">AIと会話を始めましょう...</p>
-                  </motion.div>
-                ) : (
-                  <div className="space-y-6">
-                    {messages.map((message, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className={`flex items-start gap-4 ${
-                          message.role === "assistant"
-                            ? "bg-orange-50/50 dark:bg-orange-950/30"
-                            : "bg-gray-50/50 dark:bg-gray-900/30"
-                        } p-4 rounded-xl backdrop-blur-sm`}
-                      >
-                        <div
-                          className={`p-2 rounded-lg ${
+            <ScrollArea className="h-[60vh] p-3 md:p-6">
+              <div ref={scrollAreaRef}>
+                <AnimatePresence>
+                  {messages.length === 0 ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex flex-col items-center justify-center h-full space-y-4 text-gray-400"
+                    >
+                      <MessageCircle className="w-12 h-12" />
+                      <p className="text-lg">カニAIと会話を始めましょう...</p>
+                    </motion.div>
+                  ) : (
+                    <div className="space-y-6">
+                      {messages.map((message, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className={`flex items-start gap-4 ${
                             message.role === "assistant"
-                              ? "bg-orange-100 dark:bg-orange-900"
-                              : "bg-gray-200 dark:bg-gray-800"
-                          }`}
+                              ? "bg-orange-50/50 dark:bg-orange-950/30"
+                              : "bg-gray-50/50 dark:bg-gray-900/30"
+                          } p-4 rounded-xl backdrop-blur-sm`}
                         >
-                          {message.role === "assistant" ? (
-                            <span className="text-xl">🦀</span>
-                          ) : (
-                            <User className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-                          )}
-                        </div>
-                        <div className="flex-1 space-y-2">
-                          <div className="flex items-center justify-between">
-                            <span
-                              className={`text-sm font-medium ${
-                                message.role === "assistant"
-                                  ? "text-orange-700 dark:text-orange-300"
-                                  : "text-gray-700 dark:text-gray-300"
-                              }`}
-                            >
-                              {message.role === "assistant"
-                                ? "アシスタント"
-                                : "あなた"}
-                            </span>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">
-                              {formatTime(message.timestamp)}
-                            </span>
+                          <div
+                            className={`p-2 rounded-lg ${
+                              message.role === "assistant"
+                                ? "bg-orange-100 dark:bg-orange-900"
+                                : "bg-gray-200 dark:bg-gray-800"
+                            }`}
+                          >
+                            {message.role === "assistant" ? (
+                              <span className="text-xl">🦀</span>
+                            ) : (
+                              <User className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                            )}
                           </div>
-                          <p className="text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
-                            {message.content}
-                          </p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
-              </AnimatePresence>
+                          <div className="flex-1 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span
+                                className={`text-sm font-medium ${
+                                  message.role === "assistant"
+                                    ? "text-orange-700 dark:text-orange-300"
+                                    : "text-gray-700 dark:text-gray-300"
+                                }`}
+                              >
+                                {message.role === "assistant"
+                                  ? "アシスタント"
+                                  : "あなた"}
+                              </span>
+                              <span className="text-xs text-gray-500 dark:text-gray-400">
+                                {formatTime(message.timestamp)}
+                              </span>
+                            </div>
+                            <p className="text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
+                              {message.content}
+                            </p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                </AnimatePresence>
+              </div>
             </ScrollArea>
 
             <div className="p-4 bg-gray-50/50 dark:bg-gray-900/50 border-t dark:border-gray-800">
