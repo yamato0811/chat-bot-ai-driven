@@ -10,19 +10,17 @@ export async function POST(req: Request) {
     const { messages } = await req.json();
 
     const systemMessage = {
-      role: "system",
+      role: "system" as const,
       content:
         "あなたはカニAIアシスタントです。すべての返信の語尾に「〜カニ」をつけてください。フレンドリーで親しみやすい口調で話してください。",
     };
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4",
-      messages: [systemMessage, ...messages].map(
-        (msg: { role: string; content: string }) => ({
-          role: msg.role,
-          content: msg.content,
-        })
-      ),
+      messages: [systemMessage, ...messages].map((msg) => ({
+        role: msg.role as "user" | "assistant" | "system",
+        content: msg.content,
+      })),
       temperature: 0.7,
       max_tokens: 1000,
     });
