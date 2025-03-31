@@ -148,10 +148,18 @@ export default function Home() {
       const updatedMessages = [...newMessages, assistantMessage];
       setMessages(updatedMessages);
 
-      if (currentHistoryId) {
-        updateHistoryTitle(currentHistoryId, updatedMessages);
+      if (!currentHistoryId) {
+        const newHistory: ChatHistory = {
+          id: uuidv4(),
+          title: input.length > 30 ? input.substring(0, 30) + "..." : input,
+          messages: updatedMessages,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        setHistories((prev) => [newHistory, ...prev]);
+        setCurrentHistoryId(newHistory.id);
       } else {
-        createNewChat();
+        updateHistoryTitle(currentHistoryId, updatedMessages);
       }
     } catch (error) {
       console.error(error);
